@@ -1,0 +1,451 @@
+:: StoryTitle
+TW1X Parser Validation Suite
+
+:: StoryInit
+<<set $PLAYER_NAME to "Hero">>
+<<set $HEALTH to 100>>
+<<set $MAX_HEALTH to 100>>
+<<set $GOLD to 50>>
+<<set $STRENGTH to 10>>
+<<set $WISDOM to 8>>
+<<set $HAS_SWORD to 0>>
+<<set $HAS_SHIELD to 0>>
+<<set $HAS_MAGIC_RING to 0>>
+<<set $QUEST_STAGE to 0>>
+<<set $REPUTATION to 0>>
+<<set $COMPANION to "">>
+
+:: TestSetup
+<<set $SCENARIO to 0>>
+
+<<if $SCENARIO is 0>>
+    <<set $PLAYER_NAME to "Tester">>
+    <<set $HEALTH to 100>>
+    <<set $GOLD to 50>>
+    <<set $HAS_SWORD to 0>>
+    <<set $QUEST_STAGE to 0>>
+<<elseif $SCENARIO is 1>>
+    <<set $PLAYER_NAME to "Warrior">>
+    <<set $HEALTH to 150>>
+    <<set $GOLD to 100>>
+    <<set $HAS_SWORD to 1>>
+    <<set $HAS_SHIELD to 1>>
+    <<set $STRENGTH to 15>>
+    <<set $QUEST_STAGE to 1>>
+<<elseif $SCENARIO is 2>>
+    <<set $PLAYER_NAME to "Wizard">>
+    <<set $HEALTH to 80>>
+    <<set $GOLD to 200>>
+    <<set $HAS_MAGIC_RING to 1>>
+    <<set $WISDOM to 15>>
+    <<set $QUEST_STAGE to 2>>
+<<elseif $SCENARIO is 3>>
+    <<set $PLAYER_NAME to "Champion">>
+    <<set $HEALTH to 200>>
+    <<set $GOLD to 500>>
+    <<set $HAS_SWORD to 1>>
+    <<set $HAS_SHIELD to 1>>
+    <<set $HAS_MAGIC_RING to 1>>
+    <<set $STRENGTH to 20>>
+    <<set $WISDOM to 20>>
+    <<set $QUEST_STAGE to 5>>
+    <<set $REPUTATION to 100>>
+<<else>>
+    <<set $PLAYER_NAME to "Default">>
+<<endif>>
+
+<<set $TEST_VAR to 42>>
+
+:: Start [$start]
+# TW1X Parser Test Suite
+
+Welcome, <<print $PLAYER_NAME>>!
+
+**Current Status:**
+- Health: <<print $HEALTH>> / <<print $MAX_HEALTH>>
+- Gold: <<print $GOLD>>
+- Strength: <<print $STRENGTH>>
+- Wisdom: <<print $WISDOM>>
+
+**Tests Available:**
+
+[[Test 1: Simple Conditionals|TEST_SIMPLE_CONDITIONALS]]
+[[Test 2: Nested Conditionals|TEST_NESTED_CONDITIONALS]]
+[[Test 3: Comparison Operators|TEST_COMPARISON_OPS]]
+[[Test 4: Logical Operators|TEST_LOGICAL_OPS]]
+[[Test 5: Variable Operations|TEST_VARIABLE_OPS]]
+[[Test 6: Complex Scenarios|TEST_COMPLEX_SCENARIOS]]
+[[Test 7: Print and Display|TEST_PRINT_DISPLAY]]
+
+:: TEST_SIMPLE_CONDITIONALS
+# Test 1: Simple Conditionals
+
+Testing basic if/else logic:
+
+<<if $HAS_SWORD is 1>>
+✓ You have a sword equipped.
+<<else>>
+✗ You don't have a sword.
+<<endif>>
+
+<<if $HAS_SHIELD is 1>>
+✓ You have a shield equipped.
+<<else>>
+✗ You don't have a shield.
+<<endif>>
+
+<<if $HAS_MAGIC_RING is 1>>
+✓ You possess the magic ring!
+<<else>>
+✗ No magic ring in your possession.
+<<endif>>
+
+Testing elseif chains:
+
+<<if $QUEST_STAGE is 0>>
+Quest Status: **Not Started**
+<<elseif $QUEST_STAGE is 1>>
+Quest Status: **In Progress - Early Stage**
+<<elseif $QUEST_STAGE is 2>>
+Quest Status: **In Progress - Mid Stage**
+<<elseif $QUEST_STAGE >= 3>>
+Quest Status: **Advanced Stage**
+<<else>>
+Quest Status: **Unknown**
+<<endif>>
+
+[[Back to Start|Start]]
+[[Next Test: Nested Conditionals|TEST_NESTED_CONDITIONALS]]
+
+:: TEST_NESTED_CONDITIONALS
+# Test 2: Nested Conditionals
+
+Testing nested if blocks:
+
+<<if $HEALTH > 0>>
+You are alive.
+
+<<if $HEALTH >= 100>>
+Your health is excellent!
+<<elseif $HEALTH >= 50>>
+Your health is moderate.
+<<else>>
+Your health is low - be careful!
+<<endif>>
+
+<<if $HAS_SWORD is 1>>
+    <<if $STRENGTH > 12>>
+    Your sword strikes with great power!
+    <<else>>
+    You wield the sword, but lack strength.
+    <<endif>>
+<<else>>
+You have no weapon.
+<<endif>>
+
+<<else>>
+You are dead. Game over.
+<<endif>>
+
+Testing 3-level nesting:
+
+<<if $GOLD > 0>>
+You have gold: <<print $GOLD>>
+
+<<if $GOLD >= 100>>
+    You're wealthy!
+
+    <<if $GOLD >= 500>>
+    You're incredibly rich!
+    <<else>>
+    You could be richer though.
+    <<endif>>
+
+<<else>>
+    You're managing with what you have.
+<<endif>>
+
+<<else>>
+You're broke!
+<<endif>>
+
+[[Back to Start|Start]]
+[[Next Test: Comparison Operators|TEST_COMPARISON_OPS]]
+
+:: TEST_COMPARISON_OPS
+# Test 3: Comparison Operators
+
+Testing all comparison operators:
+
+**Greater Than (>):**
+<<if $STRENGTH > 10>>
+✓ Strength is greater than 10 (actual: <<print $STRENGTH>>)
+<<else>>
+✗ Strength is NOT greater than 10 (actual: <<print $STRENGTH>>)
+<<endif>>
+
+**Less Than (<):**
+<<if $WISDOM < 20>>
+✓ Wisdom is less than 20 (actual: <<print $WISDOM>>)
+<<else>>
+✗ Wisdom is NOT less than 20 (actual: <<print $WISDOM>>)
+<<endif>>
+
+**Greater Than or Equal (>=):**
+<<if $HEALTH >= 100>>
+✓ Health is at least 100 (actual: <<print $HEALTH>>)
+<<else>>
+✗ Health is below 100 (actual: <<print $HEALTH>>)
+<<endif>>
+
+**Less Than or Equal (<=):**
+<<if $GOLD <= 1000>>
+✓ Gold is at most 1000 (actual: <<print $GOLD>>)
+<<else>>
+✗ Gold exceeds 1000 (actual: <<print $GOLD>>)
+<<endif>>
+
+**Not Equal (neq):**
+<<if $QUEST_STAGE neq 0>>
+✓ Quest has been started (stage: <<print $QUEST_STAGE>>)
+<<else>>
+✗ Quest not yet started
+<<endif>>
+
+**Equals (is):**
+<<if $TEST_VAR is 42>>
+✓ TEST_VAR equals 42
+<<else>>
+✗ TEST_VAR does not equal 42
+<<endif>>
+
+[[Back to Start|Start]]
+[[Next Test: Logical Operators|TEST_LOGICAL_OPS]]
+
+:: TEST_LOGICAL_OPS
+# Test 4: Logical Operators
+
+Testing AND operator:
+
+<<if $STRENGTH > 10 and $HEALTH > 50>>
+✓ Both strong AND healthy
+<<else>>
+✗ Either weak OR injured
+<<endif>>
+
+<<if $HAS_SWORD is 1 and $HAS_SHIELD is 1>>
+✓ Fully armed with sword AND shield
+<<else>>
+✗ Missing equipment
+<<endif>>
+
+Testing OR operator:
+
+<<if $HAS_SWORD is 1 or $HAS_MAGIC_RING is 1>>
+✓ You have EITHER a sword OR magic ring (or both)
+<<else>>
+✗ You have neither sword nor ring
+<<endif>>
+
+<<if $STRENGTH > 15 or $WISDOM > 15>>
+✓ You excel in EITHER strength OR wisdom
+<<else>>
+✗ Both stats are moderate
+<<endif>>
+
+Testing NOT operator:
+
+<<if not $HAS_MAGIC_RING>>
+✗ You don't have the magic ring
+<<else>>
+✓ You possess the magic ring!
+<<endif>>
+
+Complex combinations:
+
+<<if ($STRENGTH > 10 and $HAS_SWORD is 1) or ($WISDOM > 10 and $HAS_MAGIC_RING is 1)>>
+✓ You're either a strong warrior OR a wise mage
+<<else>>
+✗ You need to develop your character
+<<endif>>
+
+<<if $HEALTH > 100 and ($HAS_SWORD is 1 or $HAS_MAGIC_RING is 1) and $GOLD > 50>>
+✓ You're well-equipped for adventure!
+<<else>>
+✗ You need better preparation
+<<endif>>
+
+[[Back to Start|Start]]
+[[Next Test: Variable Operations|TEST_VARIABLE_OPS]]
+
+:: TEST_VARIABLE_OPS
+# Test 5: Variable Operations
+
+Testing variable modification:
+
+Original Gold: <<print $GOLD>>
+
+<<set $GOLD to $GOLD + 10>>
+After +10 gold: <<print $GOLD>>
+
+<<set $GOLD to $GOLD - 5>>
+After -5 gold: <<print $GOLD>>
+
+<<set $TEMP_STR to $STRENGTH + 5>>
+Temporary boosted strength: <<print $TEMP_STR>> (base: <<print $STRENGTH>>)
+
+Testing string operations:
+
+<<set $GREETING to "Hello, " + $PLAYER_NAME + "!">>
+Greeting: <<print $GREETING>>
+
+<<set $STATUS to "Health: " + $HEALTH>>
+Status: <<print $STATUS>>
+
+Testing variable assignment:
+
+<<set $OLD_HEALTH to $HEALTH>>
+<<set $HEALTH to 95>>
+Health changed from <<print $OLD_HEALTH>> to <<print $HEALTH>>
+<<set $HEALTH to $OLD_HEALTH>>
+Restored to: <<print $HEALTH>>
+
+[[Back to Start|Start]]
+[[Next Test: Complex Scenarios|TEST_COMPLEX_SCENARIOS]]
+
+:: TEST_COMPLEX_SCENARIOS
+# Test 6: Complex Scenarios
+
+**Merchant Encounter:**
+
+<<if $GOLD >= 100>>
+The merchant greets you warmly.
+
+<<if $HAS_SWORD is 0>>
+"Would you like to buy a sword for 100 gold?"
+
+<<if $GOLD >= 100>>
+[[Buy Sword|BUY_SWORD]]
+<<else>>
+[Not enough gold]
+<<endif>>
+
+<<else>>
+"You already have a fine sword!"
+<<endif>>
+
+<<else>>
+The merchant ignores you - you don't have enough money.
+<<endif>>
+
+**Quest Progression:**
+
+<<if $QUEST_STAGE is 0>>
+Quest Status: Ready to begin
+[[Start Quest|QUEST_START]]
+<<elseif $QUEST_STAGE is 1>>
+Quest Status: Gather supplies
+<<if $HAS_SWORD is 1 and $HAS_SHIELD is 1>>
+[[Continue Quest|QUEST_CONTINUE]]
+<<else>>
+You need both sword and shield to continue.
+<<endif>>
+<<elseif $QUEST_STAGE is 2>>
+Quest Status: Face the challenge
+<<if $STRENGTH > 12 or $WISDOM > 12>>
+[[Face Challenge|QUEST_CHALLENGE]]
+<<else>>
+You're not ready yet.
+<<endif>>
+<<elseif $QUEST_STAGE >= 3>>
+Quest Status: **COMPLETED!**
+<<else>>
+Unknown quest state
+<<endif>>
+
+**Reputation System:**
+
+<<if $REPUTATION >= 100>>
+You are a legendary hero!
+<<elseif $REPUTATION >= 50>>
+You are well-known and respected.
+<<elseif $REPUTATION >= 20>>
+You have a decent reputation.
+<<elseif $REPUTATION > 0>>
+People are starting to recognize you.
+<<elseif $REPUTATION is 0>>
+You are unknown.
+<<else>>
+You have a bad reputation.
+<<endif>>
+
+[[Back to Start|Start]]
+[[Next Test: Print and Display|TEST_PRINT_DISPLAY]]
+
+:: TEST_PRINT_DISPLAY
+# Test 7: Print and Display
+
+Testing <<print>> macro:
+
+Player Name: <<print $PLAYER_NAME>>
+Health: <<print $HEALTH>>
+Gold Coins: <<print $GOLD>>
+Strength: <<print $STRENGTH>>
+Wisdom: <<print $WISDOM>>
+
+Testing complex expressions:
+
+Total Stats: <<print $STRENGTH + $WISDOM>>
+Health Percentage: <<print ($HEALTH * 100) / $MAX_HEALTH>>%
+
+Equipment Status:
+- Sword: <<print $HAS_SWORD is 1 ? "YES" : "NO">>
+- Shield: <<print $HAS_SHIELD is 1 ? "YES" : "NO">>
+- Magic Ring: <<print $HAS_MAGIC_RING is 1 ? "YES" : "NO">>
+
+Testing string concatenation:
+
+<<print "Welcome, " + $PLAYER_NAME + "! You have " + $GOLD + " gold.">>
+
+**All Tests Complete!**
+
+[[Return to Start|Start]]
+
+:: BUY_SWORD
+You purchased a sword for 100 gold!
+
+<<set $GOLD to $GOLD - 100>>
+<<set $HAS_SWORD to 1>>
+
+Gold remaining: <<print $GOLD>>
+
+[[Back|TEST_COMPLEX_SCENARIOS]]
+
+:: QUEST_START
+You have started the quest!
+
+<<set $QUEST_STAGE to 1>>
+
+[[Back|TEST_COMPLEX_SCENARIOS]]
+
+:: QUEST_CONTINUE
+You've gathered your supplies and move forward!
+
+<<set $QUEST_STAGE to 2>>
+
+[[Back|TEST_COMPLEX_SCENARIOS]]
+
+:: QUEST_CHALLENGE
+<<if $STRENGTH > 12>>
+You use your strength to overcome the challenge!
+<<set $REPUTATION to $REPUTATION + 50>>
+<<else>>
+You use your wisdom to solve the puzzle!
+<<set $REPUTATION to $REPUTATION + 50>>
+<<endif>>
+
+<<set $QUEST_STAGE to 3>>
+
+Quest completed! Reputation increased!
+
+[[Back|TEST_COMPLEX_SCENARIOS]]
