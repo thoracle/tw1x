@@ -40,7 +40,7 @@ A comprehensive Twee 1.0/SugarCube 1.x parser for text-based interactive fiction
 
 ### From Source
 ```bash
-git clone https://github.com/yourusername/tw1x.git
+git clone https://github.com/thoracle/tw1x.git
 cd tw1x
 pip install -e .
 ```
