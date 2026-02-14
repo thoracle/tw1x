@@ -230,7 +230,7 @@ MIT License - See LICENSE file for details
 
 ## Authors
 
-Development Team
+Thor Alexander
 
 ---
 
